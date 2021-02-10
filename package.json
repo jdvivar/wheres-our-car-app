@@ -1,0 +1,25 @@
+{
+  "name": "wheres-our-car-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx servor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdvivar/wheres-our-car-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdvivar/wheres-our-car-app/issues"
+  },
+  "homepage": "https://github.com/jdvivar/wheres-our-car-app#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^5.0.9"
+  }
+}
