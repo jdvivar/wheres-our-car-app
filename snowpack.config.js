@@ -1,10 +1,10 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    src: "/"
+    src: '/'
   },
   plugins: [
-    /* ... */
+    '@snowpack/plugin-dotenv'
   ],
   packageOptions: {
     /* ... */
@@ -14,5 +14,5 @@ module.exports = {
   },
   buildOptions: {
     /* ... */
-  },
-};
+  }
+}
