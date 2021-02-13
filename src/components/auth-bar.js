@@ -23,7 +23,7 @@ class AuthBar extends LitElement {
   }
 
   renderError () {
-    return html`<p>${this.error}</p>`
+    return html`<p>${JSON.stringify(this.error)}</p>`
   }
 
   async signIn () {

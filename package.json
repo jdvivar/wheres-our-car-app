@@ -8,14 +8,15 @@
     "lint:fix": "standard --fix",
     "test": "standard",
     "build": "snowpack build",
-    "start": "snowpack dev"
+    "dev": "snowpack dev",
+    "start": "netlify dev"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jdvivar/wheres-our-car-app.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daniel Vivar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jdvivar/wheres-our-car-app/issues"
@@ -31,6 +32,7 @@
     "standard-version": "^9.1.0"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^4.9.3",
     "lit-element": "^2.4.0"
   }
 }
