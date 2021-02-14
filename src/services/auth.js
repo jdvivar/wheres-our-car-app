@@ -49,7 +49,17 @@ async function signOut () {
 }
 
 function getUserName () {
+  if (!auth) {
+    return ''
+  }
   return auth.currentUser.get().getBasicProfile().getName()
+}
+
+function getEmail () {
+  if (!auth) {
+    return ''
+  }
+  return auth.currentUser.get().getBasicProfile().getEmail()
 }
 
 export {
@@ -57,5 +67,6 @@ export {
   isSignedIn,
   signIn,
   signOut,
-  getUserName
+  getUserName,
+  getEmail
 }

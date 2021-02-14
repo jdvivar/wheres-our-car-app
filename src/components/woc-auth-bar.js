@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { observeState } from 'lit-element-state'
 import { wocState } from '../state.js'
-import { isSignedIn, signIn, signOut, getUserName } from '../services/auth.js'
+import { isSignedIn, signIn, signOut, getUserName, getEmail } from '../services/auth.js'
 
 class WocAuthBar extends observeState(LitElement) {
   static get properties () {
@@ -61,7 +61,7 @@ class WocAuthBar extends observeState(LitElement) {
 
     if (wocState.isAuthenticated) {
       return html`
-        Hello ${getUserName()}
+        Hi ${getUserName()} (${getEmail()})
         <button @click=${this.signOut}>Sign out</button>
       `
     }
