@@ -4,7 +4,8 @@ module.exports = {
     src: '/'
   },
   plugins: [
-    '@snowpack/plugin-dotenv'
+    '@snowpack/plugin-dotenv',
+    './dev/auto-inject-version.js'
   ],
   packageOptions: {
     /* ... */
