@@ -1,7 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { setup, isSignedIn, signIn, signOut, getUserName } from '../services/auth.js'
 
-class AuthBar extends LitElement {
+class WocAuthBar extends LitElement {
   static get properties () {
     return {
       error: String,
@@ -74,4 +74,4 @@ class AuthBar extends LitElement {
   }
 }
 
-window.customElements.define('auth-bar', AuthBar)
+window.customElements.define('woc-auth-bar', WocAuthBar)
