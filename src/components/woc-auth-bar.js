@@ -1,11 +1,12 @@
 import { LitElement, html } from 'lit-element'
-import { setup, isSignedIn, signIn, signOut, getUserName } from '../services/auth.js'
+import { observeState } from 'lit-element-state'
+import { wocState } from '../state.js'
+import { isSignedIn, signIn, signOut, getUserName } from '../services/auth.js'
 
-class WocAuthBar extends LitElement {
+class WocAuthBar extends observeState(LitElement) {
   static get properties () {
     return {
       error: String,
-      isAuthenticated: Boolean,
       loading: Boolean
     }
   }
@@ -14,8 +15,7 @@ class WocAuthBar extends LitElement {
     super.connectedCallback()
     this.loading = true
     try {
-      await setup()
-      this.isAuthenticated = isSignedIn()
+      wocState.signInOut(await isSignedIn())
     } catch (e) {
       this.error = e
     }
@@ -30,7 +30,6 @@ class WocAuthBar extends LitElement {
     this.loading = true
     try {
       await signIn()
-      this.isAuthenticated = true
     } catch (e) {
       this.error = e
     }
@@ -41,7 +40,6 @@ class WocAuthBar extends LitElement {
     this.loading = true
     try {
       await signOut()
-      this.isAuthenticated = false
     } catch (e) {
       this.error = e
     }
@@ -61,7 +59,7 @@ class WocAuthBar extends LitElement {
       return this.renderError()
     }
 
-    if (this.isAuthenticated) {
+    if (wocState.isAuthenticated) {
       return html`
         Hello ${getUserName()}
         <button @click=${this.signOut}>Sign out</button>

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "release": "standard-version",
+    "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "standard",
     "build": "snowpack build",
@@ -26,6 +27,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@snowpack/plugin-dotenv": "^2.0.5",
+    "babel-eslint": "^10.1.0",
     "husky": "^5.0.9",
     "snowpack": "^3.0.11",
     "standard": "^16.0.3",
@@ -33,6 +35,10 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.9.3",
-    "lit-element": "^2.4.0"
+    "lit-element": "^2.4.0",
+    "lit-element-state": "^1.5.2"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }
