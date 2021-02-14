@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.2.0...v1.3.0) (2021-02-14)
+
+
+### Features
+
+* adding auto-inject to snowpack ([b7fa732](https://github.com/jdvivar/wheres-our-car-app/commit/b7fa7322aeceb03dc61ca722436c1948f177bd9b))
+* using global state with lit-element-state ([70b47da](https://github.com/jdvivar/wheres-our-car-app/commit/70b47da36f461ba549201f3810e40d675dcef750))
+
 ## [1.2.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.1.0...v1.2.0) (2021-02-13)
 
 
