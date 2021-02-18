@@ -35,8 +35,9 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.9.3",
+    "@reduxjs/toolkit": "^1.5.0",
     "lit-element": "^2.4.0",
-    "lit-element-state": "^1.5.2"
+    "pwa-helpers": "^0.9.1"
   },
   "standard": {
     "parser": "babel-eslint"

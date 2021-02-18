@@ -1,7 +1,4 @@
-import { wocState } from '../state.js'
-
 const { SNOWPACK_PUBLIC_GAPI_CLIENT_ID } = import.meta.env
-let auth = false
 
 async function gapiCheck () {
   if (window.gapi) {
@@ -15,58 +12,38 @@ async function gapiCheck () {
 
 async function setup () {
   await gapiCheck()
-  if (!auth) {
-    auth = await window.gapi.auth2.init({
-      client_id: SNOWPACK_PUBLIC_GAPI_CLIENT_ID
-    })
-  }
-  return auth
+  return await window.gapi.auth2.init({
+    client_id: SNOWPACK_PUBLIC_GAPI_CLIENT_ID
+  })
 }
 
-async function isSignedIn () {
-  try {
-    if (!auth) {
-      await setup()
-    }
-  } catch {
-    return false
-  }
+function isSignedIn (auth) {
   return auth.isSignedIn.get()
 }
 
-async function signIn () {
-  const user = await auth.signIn()
-  wocState.signInOut(true)
+async function signInAuth (auth) {
+  await auth.signIn()
   // const { id_token } = user.getAuthResponse()
   // console.log('id_token', id_token)
-  return user
 }
 
-async function signOut () {
+async function signOutAuth (auth) {
   await auth.signOut()
-  wocState.signInOut(false)
-  return true
 }
 
-function getUserName () {
-  if (!auth) {
-    return ''
-  }
+function getName (auth) {
   return auth.currentUser.get().getBasicProfile().getName()
 }
 
-function getEmail () {
-  if (!auth) {
-    return ''
-  }
+function getEmail (auth) {
   return auth.currentUser.get().getBasicProfile().getEmail()
 }
 
 export {
   setup,
+  getName,
+  getEmail,
   isSignedIn,
-  signIn,
-  signOut,
-  getUserName,
-  getEmail
+  signInAuth,
+  signOutAuth
 }
