@@ -4,11 +4,12 @@ import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
 import { getCars, getLocations } from '../../services/db.js'
 
-function renderLocation (location) {
-  const dateString = new Date(location.date._seconds).toUTCString()
+function renderLocation ({ date, user, geo }) {
+  const dateString = new Date(date._seconds * 1000).toUTCString()
+  const geoURL = `https://www.google.com/maps/search/?api=1&query=${geo._latitude},${geo._longitude}`
   return html`
     <p>
-      Location at ${dateString} by ${location.user}: <a href="geo:${location.geo._latitude},${location.geo._longitude}">see location</a>
+      Location at ${dateString} by ${user}: <a target=_blank href="${geoURL}">see location in Google Maps</a>
     </p>
   `
 }
