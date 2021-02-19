@@ -63,7 +63,7 @@ export class WocCars extends connect(store)(LitElement) {
     }
 
     if (this.loading) {
-      return html`Loading cars...`
+      return html`<p>Loading cars...</p>`
     }
 
     return html`
