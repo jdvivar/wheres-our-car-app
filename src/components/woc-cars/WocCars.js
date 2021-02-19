@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit-element'
 import { nothing } from 'lit-html'
 import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
-import { getCars, getLocations } from '../../services/db.js'
+import { getCars } from '../../services/db.js'
 
 function renderLocation ({ date, user, geo }) {
   const dateString = new Date(date._seconds * 1000).toUTCString()
@@ -50,9 +50,6 @@ export class WocCars extends connect(store)(LitElement) {
       if (state.isAuthenticated && state.user && state.user.email) {
         this.loading = true
         this.cars = await getCars(state.user.email)
-        this.cars.forEach(async (car) => {
-          car.locations = await getLocations(car.id)
-        })
         this.loading = false
       }
     } catch {
@@ -71,8 +68,11 @@ export class WocCars extends connect(store)(LitElement) {
 
     return html`
       <h2>Your cars</h2>
-      ${this.cars.length === 0 ? html`<p>You don\'t have any cars, add one!</p>` : nothing}
-      ${this.cars.map(renderCar)}
+      ${
+        this.cars.length === 0
+        ? html`<p>You don\'t have any cars, add one!</p>`
+        : this.cars.map(renderCar)
+      }
     `
   }
 }

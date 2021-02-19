@@ -1,5 +1,3 @@
-// import { wocState } from '../state.js'
-
 async function getCars (user) {
   if (!user) {
     return []
@@ -13,20 +11,6 @@ async function getCars (user) {
   return data
 }
 
-async function getLocations (car) {
-  if (!car) {
-    return []
-  }
-  const endpoint = '/.netlify/functions/getLocations'
-  const response = await window.fetch(`${endpoint}?car=${car}`)
-  if (response.status !== 200) {
-    return []
-  }
-  const data = await response.json()
-  return data
-}
-
 export {
-  getCars,
-  getLocations
+  getCars
 }
