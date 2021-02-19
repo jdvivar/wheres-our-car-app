@@ -2,6 +2,8 @@
 const { getFirestore } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
+  // console.log(context)
+  // console.log(event)
   if (!event.queryStringParameters.user) {
     return {
       statusCode: 404,
