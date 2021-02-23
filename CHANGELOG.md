@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.4.0...v1.5.0) (2021-02-23)
+
+
+### Features
+
+* added new car component ([7c2f37a](https://github.com/jdvivar/wheres-our-car-app/commit/7c2f37adbb60b443a07c2744d39b1eeacb3af4a9))
+* remove car ([8dfdf86](https://github.com/jdvivar/wheres-our-car-app/commit/8dfdf86bb070c0222f7e68230e40ce938ce4a51f))
+
+
+### Bug Fixes
+
+* adding catch statement ([bf23745](https://github.com/jdvivar/wheres-our-car-app/commit/bf237450d4b510d6eabe02502618a8eef9612b09))
+
 ## [1.4.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.3.0...v1.4.0) (2021-02-23)
 
 
