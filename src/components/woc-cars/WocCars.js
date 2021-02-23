@@ -3,6 +3,9 @@ import { nothing } from 'lit-html'
 import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
 import { getCars } from '../../services/db.js'
+import { WocNewCar } from '../woc-new-car/WocNewCar.js'
+
+window.customElements.define(WocNewCar.is, WocNewCar)
 
 function renderLocation ({ date, user, geo }) {
   const dateString = new Date(date._seconds * 1000).toUTCString()
@@ -48,13 +51,21 @@ export class WocCars extends connect(store)(LitElement) {
     this.isAuthenticated = state.isAuthenticated
     try {
       if (state.isAuthenticated) {
-        this.loading = true
-        this.cars = await getCars()
-        this.loading = false
+        this.updateCars()
       }
     } catch {
       this.isAuthenticated = false
     }
+  }
+
+  async updateCars () {
+    this.loading = true
+    this.cars = await getCars()
+    this.loading = false
+  }
+
+  handleNewCar () {
+    this.updateCars()
   }
 
   render () {
@@ -68,6 +79,7 @@ export class WocCars extends connect(store)(LitElement) {
 
     return html`
       <h2>Your cars</h2>
+      <woc-new-car @new-car-added=${this.handleNewCar}></woc-new-car>
       ${
         this.cars.length === 0
         ? html`<p>You don\'t have any cars, add one!</p>`

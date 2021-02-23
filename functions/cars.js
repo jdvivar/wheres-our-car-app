@@ -1,4 +1,4 @@
-const { getCookieValue, verifyUser, getCars } = require('./lib/utils.js')
+const { getCookieValue, verifyUser, getCars, addCar } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -8,7 +8,7 @@ const handler = async (event, context) => {
     user = await verifyUser(token)
   } catch (error) {
     return {
-      statusCode: 403,
+      statusCode: 401,
       body: JSON.stringify(error)
     }
   }
@@ -30,6 +30,21 @@ const handler = async (event, context) => {
         body: JSON.stringify(cars)
       }
     } catch (error) {
+      return {
+        statusCode: 500,
+        body: error.toString()
+      }
+    }
+  } else if (event.httpMethod === 'POST') {
+    try {
+      const userId = user.sub
+      const name = JSON.parse(event.body).name
+      await addCar({ userId, name })
+      return {
+        statusCode: 200
+      }
+    } catch (error) {
+      console.log(error.toString())
       return {
         statusCode: 500,
         body: error.toString()

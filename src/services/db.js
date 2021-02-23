@@ -9,6 +9,14 @@ async function getCars () {
   return data
 }
 
+async function createCar (name) {
+  await window.fetch(endpoint, {
+    method: 'POST',
+    body: JSON.stringify({ name })
+  })
+}
+
 export {
-  getCars
+  getCars,
+  createCar
 }

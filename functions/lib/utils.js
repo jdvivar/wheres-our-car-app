@@ -61,9 +61,15 @@ async function getCars (userId) {
   return cars
 }
 
+async function addCar ({ userId, name }) {
+  const firestore = getFirestore()
+  firestore.collection('cars').doc().set({ name, users: [userId] })
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
   verifyUser,
-  getCars
+  getCars,
+  addCar
 }
