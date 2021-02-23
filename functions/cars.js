@@ -6,9 +6,10 @@ const handler = async (event, context) => {
   try {
     const token = getCookieValue('token', event.headers.cookie)
     user = await verifyUser(token)
-  } catch {
+  } catch (error) {
     return {
-      statusCode: 403
+      statusCode: 403,
+      body: JSON.stringify(error)
     }
   }
 
