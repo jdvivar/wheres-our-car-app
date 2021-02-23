@@ -47,9 +47,9 @@ export class WocCars extends connect(store)(LitElement) {
   async stateChanged (state) {
     this.isAuthenticated = state.isAuthenticated
     try {
-      if (state.isAuthenticated && state.user && state.user.email) {
+      if (state.isAuthenticated) {
         this.loading = true
-        this.cars = await getCars(state.user.email)
+        this.cars = await getCars()
         this.loading = false
       }
     } catch {

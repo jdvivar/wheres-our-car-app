@@ -1,6 +1,6 @@
 import { LitElement, html } from 'lit-element'
 import { connect } from 'pwa-helpers'
-import { store, setUser, signInState, signOutState } from '../../services/state.js'
+import { store, signInState, signOutState } from '../../services/state.js'
 import { setup, signInAuth, signOutAuth, isSignedIn, getEmail, getName } from '../../services/auth.js'
 
 export class WocAuth extends connect(store)(LitElement) {
@@ -27,7 +27,12 @@ export class WocAuth extends connect(store)(LitElement) {
 
   stateChanged (state) {
     this.isAuthenticated = state.isAuthenticated
-    this.user = state.user
+    if (this.isAuthenticated) {
+      this.user = {
+        name: getName(this.auth),
+        email: getEmail(this.auth)
+      }
+    }
   }
 
   async connectedCallback () {
@@ -36,10 +41,6 @@ export class WocAuth extends connect(store)(LitElement) {
     try {
       this.auth = await setup()
       if (isSignedIn(this.auth)) {
-        store.dispatch(setUser({
-          email: getEmail(this.auth),
-          name: getName(this.auth)
-        }))
         store.dispatch(signInState())
       } else {
         store.dispatch(signOutState())
@@ -54,10 +55,6 @@ export class WocAuth extends connect(store)(LitElement) {
     this.loading = true
     try {
       await signInAuth(this.auth)
-      store.dispatch(setUser({
-        email: getEmail(this.auth),
-        name: getName(this.auth)
-      }))
       store.dispatch(signInState())
     } catch (e) {
       this.error = e
@@ -69,7 +66,6 @@ export class WocAuth extends connect(store)(LitElement) {
     this.loading = true
     try {
       await signOutAuth(this.auth)
-      store.dispatch(setUser({}))
       store.dispatch(signOutState())
     } catch (e) {
       this.error = e

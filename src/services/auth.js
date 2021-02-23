@@ -18,13 +18,21 @@ async function setup () {
 }
 
 function isSignedIn (auth) {
-  return auth.isSignedIn.get()
+  const isSignedIn = auth.isSignedIn.get()
+  if (isSignedIn) {
+    updateToken(auth)
+  }
+  return isSignedIn
+}
+
+function updateToken (auth) {
+  const { id_token: idToken } = auth.currentUser.get().getAuthResponse()
+  document.cookie = `token=${idToken}`
 }
 
 async function signInAuth (auth) {
   await auth.signIn()
-  // const { id_token } = user.getAuthResponse()
-  // console.log('id_token', id_token)
+  updateToken(auth)
 }
 
 async function signOutAuth (auth) {

@@ -1,10 +1,7 @@
 const endpoint = '/.netlify/functions/cars'
 
-async function getCars (user) {
-  if (!user) {
-    return []
-  }
-  const response = await window.fetch(`${endpoint}?user=${user}`)
+async function getCars () {
+  const response = await window.fetch(endpoint)
   if (response.status !== 200) {
     return []
   }
