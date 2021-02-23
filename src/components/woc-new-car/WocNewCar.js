@@ -19,7 +19,7 @@ export class WocNewCar extends LitElement {
     const form = this.shadowRoot.querySelector('form')
     const newCar = form.name.value
     await createCar(newCar)
-    this.dispatchEvent(new window.CustomEvent('new-car-added'))
+    this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true }))
   }
 
   handleOpenDialog () {

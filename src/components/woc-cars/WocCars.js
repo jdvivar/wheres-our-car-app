@@ -4,29 +4,10 @@ import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
 import { getCars } from '../../services/db.js'
 import { WocNewCar } from '../woc-new-car/WocNewCar.js'
+import { WocCar } from '../woc-car/WocCar.js'
 
 window.customElements.define(WocNewCar.is, WocNewCar)
-
-function renderLocation ({ date, user, geo }) {
-  const dateString = new Date(date._seconds * 1000).toUTCString()
-  const geoURL = `https://www.google.com/maps/search/?api=1&query=${geo._latitude},${geo._longitude}`
-  return html`
-    <p>
-      Location at ${dateString} by ${user}: <a target=_blank href="${geoURL}">see location in Google Maps</a>
-    </p>
-  `
-}
-
-function renderCar (car) {
-  return html`
-    <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
-      <h3>${car.name}</h3>
-      <p>Locations:</p>
-      ${car.locations.map(renderLocation)}
-    </div>
-  `
-}
-
+window.customElements.define(WocCar.is, WocCar)
 export class WocCars extends connect(store)(LitElement) {
   static get is () {
     return 'woc-cars'
@@ -78,13 +59,15 @@ export class WocCars extends connect(store)(LitElement) {
     }
 
     return html`
-      <h2>Your cars</h2>
-      <woc-new-car @new-car-added=${this.handleNewCar}></woc-new-car>
-      ${
-        this.cars.length === 0
-        ? html`<p>You don\'t have any cars, add one!</p>`
-        : this.cars.map(renderCar)
-      }
+      <div @update-cars=${this.handleNewCar}>
+        <h2>Your cars</h2>
+        <woc-new-car></woc-new-car>
+        ${
+          this.cars.length === 0
+          ? html`<p>You don\'t have any cars, add one!</p>`
+          : this.cars.map(car => html`<woc-car .car=${car}></woc-car`)
+        }
+      </div>
     `
   }
 }

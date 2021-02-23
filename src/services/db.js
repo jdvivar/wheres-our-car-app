@@ -16,7 +16,15 @@ async function createCar (name) {
   })
 }
 
+async function removeCar (id) {
+  await window.fetch(endpoint, {
+    method: 'DELETE',
+    body: JSON.stringify({ id })
+  })
+}
+
 export {
   getCars,
-  createCar
+  createCar,
+  removeCar
 }

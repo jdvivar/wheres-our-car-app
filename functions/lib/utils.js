@@ -66,10 +66,26 @@ async function addCar ({ userId, name }) {
   firestore.collection('cars').doc().set({ name, users: [userId] })
 }
 
+async function removeCar ({ userId, id }) {
+  const firestore = getFirestore()
+  const doc = await firestore.collection('cars').doc(id)
+  const carSnapshot = await doc.get()
+  const car = carSnapshot.data()
+
+  if (car.users.includes(userId)) {
+    if (car.users.length === 1) {
+      await doc.delete()
+    } else {
+      await doc.update({ users: car.users.filter(user => user !== userId) })
+    }
+  }
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
   verifyUser,
   getCars,
-  addCar
+  addCar,
+  removeCar
 }

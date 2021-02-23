@@ -1,4 +1,4 @@
-const { getCookieValue, verifyUser, getCars, addCar } = require('./lib/utils.js')
+const { getCookieValue, verifyUser, getCars, addCar, removeCar } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -40,6 +40,21 @@ const handler = async (event, context) => {
       const userId = user.sub
       const name = JSON.parse(event.body).name
       await addCar({ userId, name })
+      return {
+        statusCode: 200
+      }
+    } catch (error) {
+      console.log(error.toString())
+      return {
+        statusCode: 500,
+        body: error.toString()
+      }
+    }
+  } else if (event.httpMethod === 'DELETE') {
+    try {
+      const userId = user.sub
+      const id = JSON.parse(event.body).id
+      await removeCar({ userId, id })
       return {
         statusCode: 200
       }
