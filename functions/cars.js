@@ -15,9 +15,18 @@ const handler = async (event, context) => {
   if (event.httpMethod === 'GET') {
     try {
       const userId = user.sub
+      const cars = await getCars(userId)
+      if (cars.length === 0) {
+        return {
+          statusCode: 204,
+          headers: {
+            explanation: 'This user has no cars'
+          }
+        }
+      }
       return {
         statusCode: 200,
-        body: JSON.stringify(await getCars(userId))
+        body: JSON.stringify(cars)
       }
     } catch (error) {
       return {

@@ -36,12 +36,7 @@ async function getCars (userId) {
   const carsSnapshot = await carsQuery.get()
 
   if (carsSnapshot._size === 0) {
-    return {
-      statusCode: 204,
-      headers: {
-        explanation: 'This user has no cars'
-      }
-    }
+    return []
   }
 
   const cars = []
