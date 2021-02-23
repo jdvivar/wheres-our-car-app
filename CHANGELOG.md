@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.3.0...v1.4.0) (2021-02-23)
+
+
+### Features
+
+* adding another function ([96222bd](https://github.com/jdvivar/wheres-our-car-app/commit/96222bd1cfe0cdda0a487425173404ff1eae5774))
+* update link to use Google Maps instead ([346b9f1](https://github.com/jdvivar/wheres-our-car-app/commit/346b9f1e1cfa0f4f232bdcec0ba5fcfd087a0de5))
+* using redux instead ([edba5bc](https://github.com/jdvivar/wheres-our-car-app/commit/edba5bc5c20da26e6b58433cdb3c4922455aa86c))
+
 ## [1.3.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.2.0...v1.3.0) (2021-02-14)
 
 
