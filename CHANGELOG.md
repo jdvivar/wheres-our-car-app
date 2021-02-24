@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/jdvivar/wheres-our-car-app/compare/v1.5.0...v1.5.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* dialog in Safari ([aa9ec78](https://github.com/jdvivar/wheres-our-car-app/commit/aa9ec78a3f0fdc9d45acb8603a17643ddaf92310))
+
 ## [1.5.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.4.0...v1.5.0) (2021-02-23)
 
 
