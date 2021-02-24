@@ -3,11 +3,8 @@ import { nothing } from 'lit-html'
 import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
 import { getCars } from '../../services/db.js'
-import { WocNewCar } from '../woc-new-car/WocNewCar.js'
-import { WocCar } from '../woc-car/WocCar.js'
-
-window.customElements.define(WocNewCar.is, WocNewCar)
-window.customElements.define(WocCar.is, WocCar)
+import '../woc-edit-car/woc-edit-car.js'
+import '../woc-car/woc-car.js'
 export class WocCars extends connect(store)(LitElement) {
   static get is () {
     return 'woc-cars'
@@ -45,7 +42,7 @@ export class WocCars extends connect(store)(LitElement) {
     this.loading = false
   }
 
-  handleNewCar () {
+  handleUpdateCars () {
     this.updateCars()
   }
 
@@ -59,13 +56,12 @@ export class WocCars extends connect(store)(LitElement) {
     }
 
     return html`
-      <div @update-cars=${this.handleNewCar}>
+      <div @update-cars=${this.handleUpdateCars}>
         <h2>Your cars</h2>
-        <woc-new-car></woc-new-car>
         ${
           this.cars.length === 0
           ? html`<p>You don\'t have any cars, add one!</p>`
-          : this.cars.map(car => html`<woc-car .car=${car}></woc-car`)
+          : [...[{ new: true }], ...this.cars].map(car => html`<woc-car .car=${car}></woc-car`)
         }
       </div>
     `

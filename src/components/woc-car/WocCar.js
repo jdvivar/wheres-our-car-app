@@ -22,12 +22,16 @@ export class WocCar extends LitElement {
   }
 
   render () {
+    if (this.car.new) {
+      return html`<woc-edit-car op="new"></woc-edit-car>`
+    }
     return html`
       <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
         <h3>${this.car.name}</h3>
         <p>Locations:</p>
         ${this.car.locations.map(renderLocation)}
         <button @click=${this.handleRemove}>Remove</button>
+        <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
       </div>
     `
   }

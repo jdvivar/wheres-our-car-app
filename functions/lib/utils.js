@@ -81,11 +81,23 @@ async function removeCar ({ userId, id }) {
   }
 }
 
+async function renameCar ({ userId, id, name }) {
+  const firestore = getFirestore()
+  const doc = await firestore.collection('cars').doc(id)
+  const carSnapshot = await doc.get()
+  const car = carSnapshot.data()
+
+  if (car.users.includes(userId)) {
+    await doc.update({ name })
+  }
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
   verifyUser,
   getCars,
   addCar,
-  removeCar
+  removeCar,
+  renameCar
 }
