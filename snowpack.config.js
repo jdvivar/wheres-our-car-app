@@ -7,14 +7,11 @@ module.exports = {
     '@snowpack/plugin-dotenv',
     './dev/auto-inject-version.js'
   ],
-  packageOptions: {
-    /* ... */
-  },
   devOptions: {
     port: 9999,
     open: 'none'
   },
   buildOptions: {
-    /* ... */
+    metaUrlPath: 'modules'
   }
 }
