@@ -8,3 +8,8 @@
   targetPort = 9999
   port = 8080
   framework = "#custom"
+
+[[redirects]]
+  from = "/api/cars"
+  to = "/.netlify/functions/cars"
+  status = 200
