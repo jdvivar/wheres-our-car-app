@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.5.1...v1.6.0) (2021-02-24)
+
+
+### Features
+
+* adding rename car function ([037d52b](https://github.com/jdvivar/wheres-our-car-app/commit/037d52b798e0afef3e0b9b99f84753b8375fc4ff))
+* redirect to a friendlier api name ([02e39c5](https://github.com/jdvivar/wheres-our-car-app/commit/02e39c5c396bba1f05a04ec489b5e208b926847e))
+
 ### [1.5.1](https://github.com/jdvivar/wheres-our-car-app/compare/v1.5.0...v1.5.1) (2021-02-24)
 
 
