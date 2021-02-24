@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element'
-import { createCar, renameCar } from '../../services/db.js'
+import { createCar, renameCar } from '../../services/api.js'
 import dialogPolyfill from 'dialog-polyfill'
 import { dialogPolyfillStyle } from '../lib/dialog-polyfill.style.js'
 

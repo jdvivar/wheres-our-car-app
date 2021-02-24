@@ -1,4 +1,4 @@
-const endpoint = '/.netlify/functions/cars'
+const endpoint = '/api/cars'
 
 async function getCars () {
   const response = await window.fetch(endpoint)

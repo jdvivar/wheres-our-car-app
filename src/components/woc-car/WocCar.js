@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit-element'
-import { removeCar } from '../../services/db.js'
+import { removeCar } from '../../services/api.js'
 
 function renderLocation ({ date, user, geo }) {
   const dateString = new Date(date._seconds * 1000).toUTCString()

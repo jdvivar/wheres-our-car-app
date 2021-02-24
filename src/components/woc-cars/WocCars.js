@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit-element'
 import { nothing } from 'lit-html'
 import { connect } from 'pwa-helpers'
 import { store } from '../../services/state.js'
-import { getCars } from '../../services/db.js'
+import { getCars } from '../../services/api.js'
 import '../woc-edit-car/woc-edit-car.js'
 import '../woc-car/woc-car.js'
 export class WocCars extends connect(store)(LitElement) {
