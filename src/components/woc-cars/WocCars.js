@@ -58,11 +58,8 @@ export class WocCars extends connect(store)(LitElement) {
     return html`
       <div @update-cars=${this.handleUpdateCars}>
         <h2>Your cars</h2>
-        ${
-          this.cars.length === 0
-          ? html`<p>You don\'t have any cars, add one!</p>`
-          : [...[{ new: true }], ...this.cars].map(car => html`<woc-car .car=${car}></woc-car`)
-        }
+        ${this.cars.length === 0 ? html`<p>You don\'t have any cars, add one!</p>` : nothing}
+        ${[...[{ new: true }], ...this.cars].map(car => html`<woc-car .car=${car}></woc-car`)}
       </div>
     `
   }

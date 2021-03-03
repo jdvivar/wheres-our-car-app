@@ -79,6 +79,13 @@ async function removeCar ({ userId, id }) {
       await doc.update({ users: car.users.filter(user => user !== userId) })
     }
   }
+
+  const locationsQuery = firestore.collection('locations').where('car', '==', id)
+  const locationsSnapshot = await locationsQuery.get()
+
+  locationsSnapshot.forEach(location => {
+    location.ref.delete()
+  })
 }
 
 async function renameCar ({ userId, id, name }) {
