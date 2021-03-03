@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.6.0...v1.7.0) (2021-03-03)
+
+
+### Features
+
+* adding and removing locations ([71ba2bd](https://github.com/jdvivar/wheres-our-car-app/commit/71ba2bd45e4a91270774c37e4ff9e482b0bc49b3))
+
 ## [1.6.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.5.1...v1.6.0) (2021-02-24)
 
 
