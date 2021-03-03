@@ -37,4 +37,9 @@ export const dialogPolyfillStyle = css`
     top: 50%;
     transform: translate(0, -50%);
   }
+  
+  dialog::backdrop {
+    background: rgba(0,0,0,.1);
+    backdrop-filter: blur(3px);
+  }
 `

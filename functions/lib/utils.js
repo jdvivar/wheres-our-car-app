@@ -54,7 +54,7 @@ async function getCars (userId) {
     const locationsSnapshot = await locationsQuery.select('date', 'geo', 'user').get()
 
     locationsSnapshot.forEach(location => {
-      car.locations.push(location.data())
+      car.locations.push({ ...location.data(), id: location.id })
     })
   }))
 
@@ -92,6 +92,17 @@ async function renameCar ({ userId, id, name }) {
   }
 }
 
+async function removeLocation ({ id }) {
+  const firestore = getFirestore()
+  const doc = await firestore.collection('locations').doc(id)
+  await doc.delete()
+}
+
+async function addLocation ({ userName: user, carId: car, geo }) {
+  const firestore = getFirestore()
+  firestore.collection('locations').doc().set({ date: new Date(), user, car, geo })
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
@@ -99,5 +110,7 @@ module.exports = {
   getCars,
   addCar,
   removeCar,
-  renameCar
+  renameCar,
+  removeLocation,
+  addLocation
 }

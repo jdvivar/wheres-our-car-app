@@ -1,15 +1,7 @@
 import { LitElement, html } from 'lit-element'
 import { removeCar } from '../../services/api.js'
-
-function renderLocation ({ date, user, geo }) {
-  const dateString = new Date(date._seconds * 1000).toUTCString()
-  const geoURL = `https://www.google.com/maps/search/?api=1&query=${geo._latitude},${geo._longitude}`
-  return html`
-    <p>
-      Location at ${dateString} by ${user}: <a target=_blank href="${geoURL}">see location in Google Maps</a>
-    </p>
-  `
-}
+import '../woc-location/woc-location.js'
+import '../woc-new-location/woc-new-location.js'
 
 export class WocCar extends LitElement {
   static get is () {
@@ -28,9 +20,9 @@ export class WocCar extends LitElement {
     return html`
       <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
         <h3>${this.car.name}</h3>
-        <p>Locations:</p>
-        ${this.car.locations.map(renderLocation)}
-        <button @click=${this.handleRemove}>Remove</button>
+        <woc-new-location .id=${this.car.id}></woc-new-location>
+        ${this.car.locations.map(location => html`<woc-location .location=${location}></woc-location>`)}
+        <button @click=${this.handleRemove}>Remove car</button>
         <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
       </div>
     `

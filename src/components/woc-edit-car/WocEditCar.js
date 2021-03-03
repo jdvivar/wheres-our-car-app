@@ -30,10 +30,6 @@ export class WocEditCar extends LitElement {
   static get styles () {
     return css`
       ${dialogPolyfillStyle}
-      dialog::backdrop {
-        background: rgba(0,0,0,.1);
-        backdrop-filter: blur(3px);
-      }
     `
   }
 
@@ -53,8 +49,6 @@ export class WocEditCar extends LitElement {
   }
 
   render () {
-    console.log(this.car)
-
     return html`
       <button @click=${() => this.getDialog().showModal()}>
         ${this.op === 'new' ? 'New car' : 'Rename car'}
