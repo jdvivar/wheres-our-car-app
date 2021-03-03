@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
 import { createCar, renameCar } from '../../services/api.js'
+import { getName, setup } from '../../services/auth.js'
 import dialogPolyfill from 'dialog-polyfill'
 import { dialogPolyfillStyle } from '../lib/dialog-polyfill.style.js'
 
@@ -17,9 +18,7 @@ export class WocEditCar extends LitElement {
 
   constructor () {
     super()
-    this.car = {
-      name: ''
-    }
+    setup().then(getName).then(name => { this.car = { name: `${name}'s car` } })
   }
 
   firstUpdated () {
@@ -48,9 +47,16 @@ export class WocEditCar extends LitElement {
     return this.shadowRoot.querySelector('#dialog')
   }
 
+  handleClick () {
+    const form = this.shadowRoot.querySelector('form')
+    const input = form.name
+    input.select()
+    this.getDialog().showModal()
+  }
+
   render () {
     return html`
-      <button @click=${() => this.getDialog().showModal()}>
+      <button @click=${this.handleClick}>
         ${this.op === 'new' ? 'New car' : 'Rename car'}
       </button>
       <dialog id="dialog">
