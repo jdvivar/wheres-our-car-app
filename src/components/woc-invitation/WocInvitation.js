@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit-element'
 import { nothing } from 'lit-html'
 
-import { getInvitation, acceptInvitation } from '../../services/api.js'
+import { getInvitation, acceptInvitation, rejectInvitation } from '../../services/api.js'
 
 export class WocInvitation extends LitElement {
   static get is () {
@@ -42,6 +42,11 @@ export class WocInvitation extends LitElement {
     this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true }))
   }
 
+  async handleRejectInvitation () {
+    await rejectInvitation()
+    this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true }))
+  }
+
   render () {
     if (!this.invitation) {
       return nothing
@@ -50,7 +55,7 @@ export class WocInvitation extends LitElement {
       <div>
         <p>Accept invitation from <b>${this.invitation.from}</b> to share their car <b>${this.invitation.carName}</b>?</p>
         <button @click=${this.handleAcceptInvitation}>Accept</button>
-        <button>Reject</button>
+        <button @click=${this.handleRejectInvitation}>Reject</button>
       </div>
     `
   }

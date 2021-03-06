@@ -59,6 +59,13 @@ async function acceptInvitation () {
   })
 }
 
+async function rejectInvitation () {
+  await window.fetch(INVITE, {
+    method: 'PATCH',
+    body: JSON.stringify({ status: 'rejected' })
+  })
+}
+
 export {
   getCars,
   createCar,
@@ -67,5 +74,6 @@ export {
   removeLocation,
   createLocation,
   getInvitation,
-  acceptInvitation
+  acceptInvitation,
+  rejectInvitation
 }
