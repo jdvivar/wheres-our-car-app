@@ -50,7 +50,7 @@ async function getCars (userId) {
   })
 
   await Promise.all(cars.map(async car => {
-    const locationsQuery = firestore.collection('locations').where('car', '==', car.id)
+    const locationsQuery = firestore.collection('locations').where('car', '==', car.id).orderBy('date', 'desc')
     const locationsSnapshot = await locationsQuery.select('date', 'geo', 'user').get()
 
     locationsSnapshot.forEach(location => {
@@ -110,6 +110,17 @@ async function addLocation ({ userName: user, carId: car, geo }) {
   firestore.collection('locations').doc().set({ date: new Date(), user, car, geo })
 }
 
+async function getInvitation ({ userEmail, id }) {
+  const firestore = getFirestore()
+  const documentRef = firestore.doc(`/invitations/${id}`)
+  const documentSnapshot = await documentRef.get()
+  const invitation = documentSnapshot.data()
+  if (invitation && invitation.to === userEmail) {
+    return invitation
+  }
+  return false
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
@@ -119,5 +130,6 @@ module.exports = {
   removeCar,
   renameCar,
   removeLocation,
-  addLocation
+  addLocation,
+  getInvitation
 }

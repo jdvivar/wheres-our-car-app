@@ -81,7 +81,7 @@ export class WocAuth extends connect(store)(LitElement) {
     return html`<p>Loading...</p>`
   }
 
-  render () {
+  renderAuth () {
     if (this.loading) {
       return this.renderLoading()
     }
@@ -99,6 +99,13 @@ export class WocAuth extends connect(store)(LitElement) {
 
     return html`
       <button @click=${this.signIn}>Sign in</button>
+    `
+  }
+
+  render () {
+    return html`
+      ${this.renderAuth()}
+      <hr>
     `
   }
 }

@@ -5,6 +5,7 @@ import { store } from '../../services/state.js'
 import { getCars } from '../../services/api.js'
 import '../woc-edit-car/woc-edit-car.js'
 import '../woc-car/woc-car.js'
+import '../woc-invitation/woc-invitation.js'
 export class WocCars extends connect(store)(LitElement) {
   static get is () {
     return 'woc-cars'
@@ -56,8 +57,8 @@ export class WocCars extends connect(store)(LitElement) {
     }
 
     return html`
+      <woc-invitation></woc-invitation>
       <div @update-cars=${this.handleUpdateCars}>
-        <h2>Your cars</h2>
         ${this.cars.length === 0 ? html`<p>You don\'t have any cars, add one!</p>` : nothing}
         ${[...[{ new: true }], ...this.cars].map(car => html`<woc-car .car=${car}></woc-car`)}
       </div>
