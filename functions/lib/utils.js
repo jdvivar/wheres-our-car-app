@@ -110,13 +110,34 @@ async function addLocation ({ userName: user, carId: car, geo }) {
 
 async function getInvitation ({ userEmail, id }) {
   const firestore = getFirestore()
-  const documentRef = firestore.doc(`/invitations/${id}`)
-  const documentSnapshot = await documentRef.get()
-  const invitation = documentSnapshot.data()
-  if (invitation && invitation.to === userEmail) {
+  const inviteRef = firestore.doc(`/invitations/${id}`)
+  const inviteSnapshot = await inviteRef.get()
+  const invitation = inviteSnapshot.data()
+  if (invitation && invitation.to === userEmail && invitation.status === 'pending') {
     return invitation
   }
   return false
+}
+
+async function updateInvite ({ status, id, userId }) {
+  const firestore = getFirestore()
+  const inviteRef = firestore.doc(`/invitations/${id}`)
+  const inviteSnapshot = await inviteRef.get()
+  if (inviteSnapshot.exists) {
+    await inviteRef.update({ status, toId: id })
+    if (status === 'accepted') {
+      const carId = inviteSnapshot.get('car')
+      const carRef = firestore.doc(`/cars/${carId}`)
+      const carSnapshot = await carRef.get()
+      if (carSnapshot.exists) {
+        const users = await carSnapshot.get('users')
+        users.push(userId)
+        carRef.update({ users })
+      }
+    }
+    return true
+  }
+  throw new Error('Invite doesn\'t exist')
 }
 
 module.exports = {
@@ -129,5 +150,6 @@ module.exports = {
   renameCar,
   removeLocation,
   addLocation,
-  getInvitation
+  getInvitation,
+  updateInvite
 }

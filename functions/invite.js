@@ -1,4 +1,4 @@
-const { getCookieValue, verifyUser, getInvitation } = require('./lib/utils.js')
+const { getCookieValue, verifyUser, getInvitation, updateInvite } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -15,19 +15,19 @@ const handler = async (event, context) => {
 
   try {
     const userEmail = user.email
-    if (event.httpMethod === 'GET') {
-      const refererURL = new URL(event.headers.referer)
-      const params = new URLSearchParams(refererURL.search)
-      const id = params.get('invite')
-      if (!id) {
-        return {
-          statusCode: 404,
-          headers: {
-            explanation: 'No invite id'
-          }
+    const userId = user.sub
+    const refererURL = new URL(event.headers.referer)
+    const params = new URLSearchParams(refererURL.search)
+    const id = params.get('invite')
+    if (!id) {
+      return {
+        statusCode: 404,
+        headers: {
+          explanation: 'No invite id'
         }
       }
-
+    }
+    if (event.httpMethod === 'GET') {
       const invitation = await getInvitation({ userEmail, id })
       if (!invitation) {
         return {
@@ -41,12 +41,12 @@ const handler = async (event, context) => {
         statusCode: 200,
         body: JSON.stringify(invitation)
       }
-    // } else if (event.httpMethod === 'POST') {
-    //   const { carId, geo } = JSON.parse(event.body)
-    //   await addLocation({ userName, carId, geo })
-    //   return {
-    //     statusCode: 200
-    //   }
+    } else if (event.httpMethod === 'PATCH') {
+      const { status } = JSON.parse(event.body)
+      await updateInvite({ status, id, userId })
+      return {
+        statusCode: 200
+      }
     // } else if (event.httpMethod === 'DELETE') {
     //   const id = JSON.parse(event.body).id
     //   await removeLocation({ id })
