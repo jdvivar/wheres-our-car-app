@@ -63,7 +63,7 @@ async function getCars (userId) {
 
 async function addCar ({ userId, name }) {
   const firestore = getFirestore()
-  firestore.collection('cars').doc().set({ name, users: [userId] })
+  firestore.collection('cars').doc().set({ name, owner: userId, users: [userId] })
 }
 
 async function removeCar ({ userId, id }) {
@@ -72,20 +72,18 @@ async function removeCar ({ userId, id }) {
   const carSnapshot = await doc.get()
   const car = carSnapshot.data()
 
-  if (car.users.includes(userId)) {
-    if (car.users.length === 1) {
-      await doc.delete()
-    } else {
-      await doc.update({ users: car.users.filter(user => user !== userId) })
-    }
+  if (car.owner === userId) {
+    await doc.delete()
+    const locationsQuery = firestore.collection('locations').where('car', '==', id)
+    const locationsSnapshot = await locationsQuery.get()
+    locationsSnapshot.forEach(location => {
+      location.ref.delete()
+    })
   }
 
-  const locationsQuery = firestore.collection('locations').where('car', '==', id)
-  const locationsSnapshot = await locationsQuery.get()
-
-  locationsSnapshot.forEach(location => {
-    location.ref.delete()
-  })
+  if (car.users.includes(userId)) {
+    await doc.update({ users: car.users.filter(user => user !== userId) })
+  }
 }
 
 async function renameCar ({ userId, id, name }) {
