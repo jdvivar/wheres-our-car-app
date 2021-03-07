@@ -8,11 +8,12 @@ export class WocLocation extends LitElement {
     return 'woc-location'
   }
 
-  // static get properties () {
-  //   return {
-  //     location: Object
-  //   }
-  // }
+  static get properties () {
+    return {
+      location: Object,
+      carId: String
+    }
+  }
 
   static get styles () {
     return css`
@@ -25,13 +26,12 @@ export class WocLocation extends LitElement {
   }
 
   async handleRemove () {
-    console.log({ carId: this.id, ...this.location })
-    await removeLocation({ carId: this.id, ...this.location })
+    await removeLocation({ carId: this.carId, locationId: this.location.id })
     this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true, composed: true }))
   }
 
   render () {
-    if (!this.location && !this.id) {
+    if (!this.location && !this.carId) {
       return nothing
     }
     const { date, userName, geo } = this.location

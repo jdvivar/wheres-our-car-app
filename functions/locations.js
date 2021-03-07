@@ -46,8 +46,8 @@ const handler = async (event, context) => {
         statusCode: 200
       }
     } else if (event.httpMethod === 'DELETE') {
-      const { carId, location } = JSON.parse(event.body)
-      await removeLocation({ carId, location })
+      const { carId, locationId } = JSON.parse(event.body)
+      await removeLocation({ carId, locationId })
       return {
         statusCode: 200
       }

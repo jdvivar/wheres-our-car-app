@@ -39,10 +39,10 @@ async function getLocations (id) {
   return await response.json()
 }
 
-async function removeLocation ({ carId, ...location }) {
+async function removeLocation ({ carId, locationId }) {
   await window.fetch(LOCATIONS, {
     method: 'DELETE',
-    body: JSON.stringify({ carId, location })
+    body: JSON.stringify({ carId, locationId })
   })
 }
 

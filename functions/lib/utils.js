@@ -88,18 +88,20 @@ async function getLocations (id) {
   const locationsSnapshot = await locationsRef.get()
 
   const locations = []
-  locationsSnapshot.forEach(location => locations.push(location.data()))
+  locationsSnapshot.forEach(location => {
+    locations.push({
+      ...location.data(),
+      id: location.id
+    })
+  })
 
   return locations
 }
 
-async function removeLocation ({ carId, location }) {
+async function removeLocation ({ carId, locationId }) {
   const firestore = getFirestore()
-  const carRef = await firestore.collection('cars').doc(carId)
-  console.log(location)
-  await carRef.update({
-    locations: Firestore.FieldValue.arrayRemove(location)
-  })
+  const locationRef = firestore.collection('cars').doc(carId).collection('locations').doc(locationId)
+  await locationRef.delete()
 }
 
 async function addLocation ({ userName, carId, geo }) {

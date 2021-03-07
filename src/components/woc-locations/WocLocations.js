@@ -36,7 +36,7 @@ export class WocLocations extends LitElement {
 
     return html`
       ${this.locations.map(location => html`
-        <woc-location .id=${this.id} .location=${location}></woc-location>
+        <woc-location carId=${this.id} .location=${location}></woc-location>
       `)}
     `
   }
