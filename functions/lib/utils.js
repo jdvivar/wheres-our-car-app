@@ -43,20 +43,10 @@ async function getCars (userId) {
 
   carsSnapshot.forEach(car => {
     cars.push({
-      id: car.id,
-      name: car.get('name'),
-      locations: []
+      ...car.data(),
+      id: car.id
     })
   })
-
-  await Promise.all(cars.map(async car => {
-    const locationsQuery = firestore.collection('locations').where('car', '==', car.id).orderBy('date', 'desc')
-    const locationsSnapshot = await locationsQuery.select('date', 'geo', 'user').get()
-
-    locationsSnapshot.forEach(location => {
-      car.locations.push({ ...location.data(), id: location.id })
-    })
-  }))
 
   return cars
 }
@@ -74,11 +64,6 @@ async function removeCar ({ userId, id }) {
 
   if (car.owner === userId) {
     await doc.delete()
-    const locationsQuery = firestore.collection('locations').where('car', '==', id)
-    const locationsSnapshot = await locationsQuery.get()
-    locationsSnapshot.forEach(location => {
-      location.ref.delete()
-    })
   }
 
   if (car.users.includes(userId)) {
@@ -97,15 +82,33 @@ async function renameCar ({ userId, id, name }) {
   }
 }
 
-async function removeLocation ({ id }) {
+async function getLocations (id) {
   const firestore = getFirestore()
-  const doc = await firestore.collection('locations').doc(id)
-  await doc.delete()
+  const locationsRef = firestore.collection('cars').doc(id).collection('locations')
+  const locationsSnapshot = await locationsRef.get()
+
+  const locations = []
+  locationsSnapshot.forEach(location => locations.push(location.data()))
+
+  return locations
 }
 
-async function addLocation ({ userName: user, carId: car, geo }) {
+async function removeLocation ({ carId, location }) {
   const firestore = getFirestore()
-  firestore.collection('locations').doc().set({ date: new Date(), user, car, geo })
+  const carRef = await firestore.collection('cars').doc(carId)
+  console.log(location)
+  await carRef.update({
+    locations: Firestore.FieldValue.arrayRemove(location)
+  })
+}
+
+async function addLocation ({ userName, carId, geo }) {
+  const firestore = getFirestore()
+  await firestore.collection('cars').doc(carId).collection('locations').doc().set({
+    userName,
+    geo,
+    date: new Date()
+  })
 }
 
 async function getInvitation ({ userEmail, id }) {
@@ -148,6 +151,7 @@ module.exports = {
   addCar,
   removeCar,
   renameCar,
+  getLocations,
   removeLocation,
   addLocation,
   getInvitation,

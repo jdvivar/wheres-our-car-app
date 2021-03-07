@@ -29,13 +29,13 @@ export class WocInvitation extends LitElement {
     }
   }
 
-  async connectedCallback () {
-    super.connectedCallback()
-    const params = new URLSearchParams(window.location.search)
-    if (params.get('invite')) {
-      this.invitation = await getInvitation()
-    }
-  }
+  // async connectedCallback () {
+  //   super.connectedCallback()
+  //   const params = new URLSearchParams(window.location.search)
+  //   if (params.get('invite')) {
+  //     this.invitation = await getInvitation()
+  //   }
+  // }
 
   async handleAcceptInvitation () {
     await acceptInvitation()

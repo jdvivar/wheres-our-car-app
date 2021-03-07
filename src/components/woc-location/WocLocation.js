@@ -25,20 +25,21 @@ export class WocLocation extends LitElement {
   }
 
   async handleRemove () {
-    await removeLocation(this.location.id)
+    console.log({ carId: this.id, ...this.location })
+    await removeLocation({ carId: this.id, ...this.location })
     this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true, composed: true }))
   }
 
   render () {
-    if (!this.location) {
+    if (!this.location && !this.id) {
       return nothing
     }
-    const { date, user, geo } = this.location
+    const { date, userName, geo } = this.location
     const dateString = new Date(date._seconds * 1000).toUTCString()
     const geoURL = `https://www.google.com/maps/search/?api=1&query=${geo.latitude},${geo.longitude}`
     return html`
       <div>
-        Location at ${dateString} by ${user}:
+        Location at ${dateString} by ${userName}:
         <br>
         <a target=_blank href="${geoURL}">See location in Google Maps</a>
         <button @click=${this.handleRemove}>Remove location</button>

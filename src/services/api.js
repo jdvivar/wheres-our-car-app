@@ -7,8 +7,7 @@ async function getCars () {
   if (response.status !== 200) {
     return []
   }
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 async function createCar (name) {
@@ -32,10 +31,18 @@ async function renameCar ({ id, name }) {
   })
 }
 
-async function removeLocation (id) {
+async function getLocations (id) {
+  const response = await window.fetch(`${LOCATIONS}?id=${id}`)
+  if (response.status !== 200) {
+    return []
+  }
+  return await response.json()
+}
+
+async function removeLocation ({ carId, ...location }) {
   await window.fetch(LOCATIONS, {
     method: 'DELETE',
-    body: JSON.stringify({ id })
+    body: JSON.stringify({ carId, location })
   })
 }
 
@@ -71,6 +78,7 @@ export {
   createCar,
   removeCar,
   renameCar,
+  getLocations,
   removeLocation,
   createLocation,
   getInvitation,
