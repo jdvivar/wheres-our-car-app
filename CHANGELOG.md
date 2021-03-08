@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.8.0...v1.9.0) (2021-03-08)
+
+
+### Features
+
+* accepting invitations ([4c99bcf](https://github.com/jdvivar/wheres-our-car-app/commit/4c99bcf1803d19f91b316c0b141d0d6589b755c2))
+* create invitation - WIP ([584ae20](https://github.com/jdvivar/wheres-our-car-app/commit/584ae2082205053f255a5f5fc4130297a63853cd))
+* reject invitations ([4ad5d8f](https://github.com/jdvivar/wheres-our-car-app/commit/4ad5d8f64c543dd1584f83f43a608d3ff8d7b464))
+* showing an invite ([186f133](https://github.com/jdvivar/wheres-our-car-app/commit/186f133413e4f633aee172902eef6d94b371003c))
+* using both owner and users ([b81804a](https://github.com/jdvivar/wheres-our-car-app/commit/b81804a8a658a439ef8021ef816799e08fdf2616))
+
+
+### Bug Fixes
+
+* remove car ([adb6db3](https://github.com/jdvivar/wheres-our-car-app/commit/adb6db3dc7a0a9bc263ba6954bff59b9a4a4de63))
+
 ## [1.8.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.7.1...v1.8.0) (2021-03-03)
 
 
