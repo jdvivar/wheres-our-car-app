@@ -43,8 +43,9 @@ async function getCars (userId) {
 
   carsSnapshot.forEach(car => {
     cars.push({
-      ...car.data(),
-      id: car.id
+      id: car.id,
+      name: car.get('name'),
+      isMine: car.get('owner') === userId
     })
   })
 

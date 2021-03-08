@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit-element'
+import { nothing } from 'lit-html'
 import { removeCar } from '../../services/api.js'
 import '../woc-new-location/woc-new-location.js'
 import '../woc-locations/woc-locations.js'
@@ -20,10 +21,23 @@ export class WocCar extends LitElement {
     return html`
       <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
         <h3>${this.car.name}</h3>
-        <woc-new-location .id=${this.car.id}></woc-new-location>
-        <woc-locations id=${this.car.id}></woc-locations>
-        <button @click=${this.handleRemove}>Remove car</button>
+        <button @click=${this.handleRemove}>
+          ${
+            this.car.isMine
+            ? 'Remove car'
+            : 'Stop sharing car'
+          }
+        </button>
+        ${
+          this.car.isMine
+          ? html`<button>Share car</button>`
+          : nothing
+        }
         <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
+        <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
+          <woc-new-location .id=${this.car.id}></woc-new-location>
+          <woc-locations id=${this.car.id}></woc-locations>
+        </div>
       </div>
     `
   }
