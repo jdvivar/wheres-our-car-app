@@ -125,6 +125,29 @@ async function getInvitation ({ userEmail, id }) {
   return false
 }
 
+async function getInvitations (carId) {
+  console.log({ carId })
+  const firestore = getFirestore()
+  const invitationsQuery = firestore.collection('invitations').where('carId', '==', carId)
+
+  const invitationsSnapshot = await invitationsQuery.get()
+
+  if (invitationsSnapshot._size === 0) {
+    return []
+  }
+
+  const invitations = []
+
+  invitationsSnapshot.forEach(invitation => {
+    invitations.push({
+      id: invitation.id,
+      to: invitation.get('to')
+    })
+  })
+
+  return invitations
+}
+
 async function updateInvite ({ status, id, userId }) {
   const firestore = getFirestore()
   const inviteRef = firestore.doc(`/invitations/${id}`)
@@ -158,5 +181,6 @@ module.exports = {
   removeLocation,
   addLocation,
   getInvitation,
+  getInvitations,
   updateInvite
 }

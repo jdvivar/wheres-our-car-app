@@ -61,6 +61,14 @@ async function getInvitation () {
   return await response.json()
 }
 
+async function getInvitations (id) {
+  const response = await window.fetch(`${INVITE}?forId=${id}`)
+  if (response.status !== 200) {
+    return []
+  }
+  return await response.json()
+}
+
 async function acceptInvitation () {
   await window.fetch(INVITE, {
     method: 'PATCH',
@@ -84,6 +92,7 @@ export {
   removeLocation,
   createLocation,
   getInvitation,
+  getInvitations,
   acceptInvitation,
   rejectInvitation
 }

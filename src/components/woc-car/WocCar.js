@@ -3,6 +3,7 @@ import { nothing } from 'lit-html'
 import { removeCar } from '../../services/api.js'
 import '../woc-new-location/woc-new-location.js'
 import '../woc-locations/woc-locations.js'
+import '../woc-manage-sharing/woc-manage-sharing.js'
 
 export class WocCar extends LitElement {
   static get is () {
@@ -28,14 +29,14 @@ export class WocCar extends LitElement {
             : 'Stop sharing car'
           }
         </button>
+        <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
         ${
           this.car.isMine
-          ? html`<button>Share car</button>`
+          ? html`<woc-manage-sharing id=${this.car.id}></woc-manage-sharing>`
           : nothing
         }
-        <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
         <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
-          <woc-new-location .id=${this.car.id}></woc-new-location>
+          <woc-new-location id=${this.car.id}></woc-new-location>
           <woc-locations id=${this.car.id}></woc-locations>
         </div>
       </div>

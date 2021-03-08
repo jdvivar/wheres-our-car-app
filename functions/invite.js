@@ -1,4 +1,4 @@
-const { getCookieValue, verifyUser, getInvitation, updateInvite } = require('./lib/utils.js')
+const { getCookieValue, verifyUser, getInvitation, getInvitations, updateInvite } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -19,27 +19,44 @@ const handler = async (event, context) => {
     const refererURL = new URL(event.headers.referer)
     const params = new URLSearchParams(refererURL.search)
     const id = params.get('invite')
-    if (!id) {
+    const { forId } = event.queryStringParameters
+    if (!id && !forId) {
       return {
         statusCode: 404,
         headers: {
-          explanation: 'No invite id'
+          explanation: 'No invite id or forId'
         }
       }
     }
     if (event.httpMethod === 'GET') {
-      const invitation = await getInvitation({ userEmail, id })
-      if (!invitation) {
-        return {
-          statusCode: 204,
-          headers: {
-            explanation: 'This user hasn\'t got any invitation'
+      if (id) {
+        const invitation = await getInvitation({ userEmail, id })
+        if (!invitation) {
+          return {
+            statusCode: 204,
+            headers: {
+              explanation: 'This user hasn\'t got any invitation'
+            }
           }
         }
-      }
-      return {
-        statusCode: 200,
-        body: JSON.stringify(invitation)
+        return {
+          statusCode: 200,
+          body: JSON.stringify(invitation)
+        }
+      } else if (forId) {
+        const invitations = await getInvitations(forId)
+        if (!invitations.length) {
+          return {
+            statusCode: 204,
+            headers: {
+              explanation: 'This car hasn\'t got any invitations'
+            }
+          }
+        }
+        return {
+          statusCode: 200,
+          body: JSON.stringify(invitations)
+        }
       }
     } else if (event.httpMethod === 'PATCH') {
       const { status } = JSON.parse(event.body)
