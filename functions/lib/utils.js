@@ -1,4 +1,4 @@
-const { Firestore } = require('@google-cloud/firestore')
+const { Firestore, FieldValue } = require('@google-cloud/firestore')
 const { OAuth2Client } = require('google-auth-library')
 
 function getFirestore () {
@@ -131,13 +131,13 @@ async function updateInvite ({ status, id, userId }) {
   if (inviteSnapshot.exists) {
     await inviteRef.update({ status, toId: id })
     if (status === 'accepted') {
-      const carId = inviteSnapshot.get('car')
+      const carId = inviteSnapshot.get('carId')
       const carRef = firestore.doc(`/cars/${carId}`)
       const carSnapshot = await carRef.get()
       if (carSnapshot.exists) {
-        const users = await carSnapshot.get('users')
-        users.push(userId)
-        carRef.update({ users })
+        await carRef.update({
+          users: FieldValue.arrayUnion(userId)
+        })
       }
     }
     return true
