@@ -58,16 +58,16 @@ async function addCar ({ userId, name }) {
 
 async function removeCar ({ userId, id }) {
   const firestore = getFirestore()
-  const doc = await firestore.collection('cars').doc(id)
-  const carSnapshot = await doc.get()
+  const carRef = await firestore.collection('cars').doc(id)
+  const carSnapshot = await carRef.get()
   const car = carSnapshot.data()
 
   if (car.owner === userId) {
-    await doc.delete()
+    return await carRef.delete()
   }
 
   if (car.users.includes(userId)) {
-    await doc.update({ users: car.users.filter(user => user !== userId) })
+    return await carRef.update({ users: car.users.filter(user => user !== userId) })
   }
 }
 

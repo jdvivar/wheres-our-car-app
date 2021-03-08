@@ -16,9 +16,12 @@ export class WocEditCar extends LitElement {
     }
   }
 
-  constructor () {
-    super()
-    setup().then(getName).then(name => { this.car = { name: `${name}'s car` } })
+  async connectedCallback () {
+    super.connectedCallback()
+    if (this.op === 'new') {
+      const auth = await setup()
+      this.car = { name: `${getName(auth)}'s car` }
+    }
   }
 
   firstUpdated () {
