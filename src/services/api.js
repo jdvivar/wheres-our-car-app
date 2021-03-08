@@ -55,8 +55,10 @@ async function createLocation ({ geo, carId }) {
 
 async function getInvitation () {
   const response = await window.fetch(INVITE)
-  const data = await response.json()
-  return data
+  if (response.status !== 200) {
+    return false
+  }
+  return await response.json()
 }
 
 async function acceptInvitation () {
