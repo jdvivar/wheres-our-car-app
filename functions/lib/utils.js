@@ -127,7 +127,9 @@ async function getInvitation ({ userEmail, id }) {
 
 async function getInvitations (carId) {
   const firestore = getFirestore()
-  const invitationsQuery = firestore.collection('invitations').where('carId', '==', carId).where('status', '==', 'accepted')
+  const invitationsQuery = firestore.collection('invitations')
+    .where('carId', '==', carId)
+    .where('status', 'in', ['pending', 'accepted'])
 
   const invitationsSnapshot = await invitationsQuery.get()
 
