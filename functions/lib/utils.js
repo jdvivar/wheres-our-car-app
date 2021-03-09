@@ -176,6 +176,13 @@ async function updateInvite ({ status, id, userId }) {
   throw new Error('Invite doesn\'t exist')
 }
 
+async function addInvite ({ to, carId, carName, from }) {
+  console.log({ to, carId, carName, from })
+  const status = 'pending'
+  const firestore = getFirestore()
+  return await firestore.collection('invitations').doc().set({ to, carId, carName, from, status })
+}
+
 module.exports = {
   getFirestore,
   getCookieValue,
@@ -189,5 +196,6 @@ module.exports = {
   addLocation,
   getInvitation,
   getInvitations,
-  updateInvite
+  updateInvite,
+  addInvite
 }

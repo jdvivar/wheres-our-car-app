@@ -3,6 +3,7 @@ import { nothing } from 'lit-html'
 import { getInvitations } from '../../services/api.js'
 
 import '../woc-stop-sharing/woc-stop-sharing.js'
+import '../woc-share-car/woc-share-car.js'
 
 export class WocManageSharing extends LitElement {
   static get is () {
@@ -12,13 +13,13 @@ export class WocManageSharing extends LitElement {
   static get properties () {
     return {
       invitations: [],
-      id: false
+      car: false
     }
   }
 
   async connectedCallback () {
     super.connectedCallback()
-    this.invitations = await getInvitations(this.id)
+    this.invitations = await getInvitations(this.car.id)
   }
 
   renderInvitationsList () {
@@ -33,11 +34,11 @@ export class WocManageSharing extends LitElement {
   }
 
   render () {
-    if (!this.id) {
+    if (!this.car) {
       return nothing
     }
     return html`
-      <button>Share car</button>
+      <woc-share-car .car=${this.car}></woc-share-car >
       ${this.renderInvitationsList()}
     `
   }

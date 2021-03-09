@@ -19,6 +19,7 @@ export class WocCar extends LitElement {
     if (this.car.new) {
       return html`<woc-edit-car op="new"></woc-edit-car>`
     }
+
     return html`
       <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
         <h3>${this.car.name}</h3>
@@ -32,7 +33,7 @@ export class WocCar extends LitElement {
         <woc-edit-car op="rename" .car=${this.car}></woc-edit-car>
         ${
           this.car.isMine
-          ? html`<woc-manage-sharing id=${this.car.id}></woc-manage-sharing>`
+          ? html`<woc-manage-sharing .car=${this.car}></woc-manage-sharing>`
           : nothing
         }
         <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">

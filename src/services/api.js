@@ -24,10 +24,10 @@ async function removeCar (id) {
   })
 }
 
-async function renameCar ({ id, name }) {
+async function renameCar (args) {
   await window.fetch(CARS, {
     method: 'PATCH',
-    body: JSON.stringify({ id, name })
+    body: JSON.stringify(args)
   })
 }
 
@@ -39,17 +39,17 @@ async function getLocations (id) {
   return await response.json()
 }
 
-async function removeLocation ({ carId, locationId }) {
+async function removeLocation (args) {
   await window.fetch(LOCATIONS, {
     method: 'DELETE',
-    body: JSON.stringify({ carId, locationId })
+    body: JSON.stringify(args)
   })
 }
 
-async function createLocation ({ geo, carId }) {
+async function createLocation (args) {
   await window.fetch(LOCATIONS, {
     method: 'POST',
-    body: JSON.stringify({ geo, carId })
+    body: JSON.stringify(args)
   })
 }
 
@@ -90,6 +90,13 @@ async function removeInvitation (id) {
   })
 }
 
+async function createInvitation (args) {
+  await window.fetch(INVITE, {
+    method: 'POST',
+    body: JSON.stringify(args)
+  })
+}
+
 export {
   getCars,
   createCar,
@@ -102,5 +109,6 @@ export {
   getInvitations,
   acceptInvitation,
   rejectInvitation,
-  removeInvitation
+  removeInvitation,
+  createInvitation
 }

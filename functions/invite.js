@@ -1,4 +1,11 @@
-const { getCookieValue, verifyUser, getInvitation, getInvitations, updateInvite } = require('./lib/utils.js')
+const {
+  getCookieValue,
+  verifyUser,
+  getInvitation,
+  getInvitations,
+  updateInvite,
+  addInvite
+} = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -15,6 +22,7 @@ const handler = async (event, context) => {
 
   try {
     const userEmail = user.email
+    const userName = user.name
     const userId = user.sub
     const refererURL = new URL(event.headers.referer)
     const params = new URLSearchParams(refererURL.search)
@@ -67,6 +75,12 @@ const handler = async (event, context) => {
     } else if (event.httpMethod === 'DELETE') {
       const { status, id } = JSON.parse(event.body)
       await updateInvite({ status, id, userId })
+      return {
+        statusCode: 200
+      }
+    } else if (event.httpMethod === 'POST') {
+      const { to, carId, carName } = JSON.parse(event.body)
+      await addInvite({ to, carId, carName, from: userName })
       return {
         statusCode: 200
       }
