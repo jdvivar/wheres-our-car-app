@@ -2,6 +2,8 @@ import { LitElement, html } from 'lit-element'
 import { nothing } from 'lit-html'
 import { getInvitations } from '../../services/api.js'
 
+import '../woc-stop-sharing/woc-stop-sharing.js'
+
 export class WocManageSharing extends LitElement {
   static get is () {
     return 'woc-manage-sharing'
@@ -23,7 +25,7 @@ export class WocManageSharing extends LitElement {
     if (this.invitations && this.invitations.length) {
       return html`
         <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
-        ${this.invitations.map(({ id, to }) => html`<button id=${id}>Stop sharing with ${to}</button>`)}
+        ${this.invitations.map(({ id, to }) => html`<woc-stop-sharing id=${id} to=${to}></woc-stop-sharing>`)}
         </div>
       `
     }

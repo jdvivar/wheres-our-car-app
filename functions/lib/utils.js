@@ -126,9 +126,8 @@ async function getInvitation ({ userEmail, id }) {
 }
 
 async function getInvitations (carId) {
-  console.log({ carId })
   const firestore = getFirestore()
-  const invitationsQuery = firestore.collection('invitations').where('carId', '==', carId)
+  const invitationsQuery = firestore.collection('invitations').where('carId', '==', carId).where('status', '==', 'accepted')
 
   const invitationsSnapshot = await invitationsQuery.get()
 
@@ -153,15 +152,23 @@ async function updateInvite ({ status, id, userId }) {
   const inviteRef = firestore.doc(`/invitations/${id}`)
   const inviteSnapshot = await inviteRef.get()
   if (inviteSnapshot.exists) {
-    await inviteRef.update({ status, toId: id })
-    if (status === 'accepted') {
-      const carId = inviteSnapshot.get('carId')
-      const carRef = firestore.doc(`/cars/${carId}`)
-      const carSnapshot = await carRef.get()
-      if (carSnapshot.exists) {
+    await inviteRef.update({ status })
+    const carId = inviteSnapshot.get('carId')
+    const carRef = firestore.doc(`/cars/${carId}`)
+    const carSnapshot = await carRef.get()
+    if (carSnapshot.exists) {
+      if (status === 'accepted') {
+        await inviteRef.update({ toId: userId })
         await carRef.update({
           users: FieldValue.arrayUnion(userId)
         })
+      } else if (status === 'stopped') {
+        const toId = await inviteSnapshot.get('toId')
+        await carRef.update({
+          users: FieldValue.arrayRemove(toId)
+        })
+      } else if (status === 'rejected') {
+        //
       }
     }
     return true

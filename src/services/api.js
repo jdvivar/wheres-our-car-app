@@ -83,6 +83,13 @@ async function rejectInvitation () {
   })
 }
 
+async function removeInvitation (id) {
+  await window.fetch(`${INVITE}`, {
+    method: 'DELETE',
+    body: JSON.stringify({ status: 'stopped', id })
+  })
+}
+
 export {
   getCars,
   createCar,
@@ -94,5 +101,6 @@ export {
   getInvitation,
   getInvitations,
   acceptInvitation,
-  rejectInvitation
+  rejectInvitation,
+  removeInvitation
 }

@@ -20,15 +20,15 @@ const handler = async (event, context) => {
     const params = new URLSearchParams(refererURL.search)
     const id = params.get('invite')
     const { forId } = event.queryStringParameters
-    if (!id && !forId) {
-      return {
-        statusCode: 404,
-        headers: {
-          explanation: 'No invite id or forId'
+    if (event.httpMethod === 'GET') {
+      if (!id && !forId) {
+        return {
+          statusCode: 404,
+          headers: {
+            explanation: 'No invite id or forId'
+          }
         }
       }
-    }
-    if (event.httpMethod === 'GET') {
       if (id) {
         const invitation = await getInvitation({ userEmail, id })
         if (!invitation) {
@@ -64,12 +64,12 @@ const handler = async (event, context) => {
       return {
         statusCode: 200
       }
-    // } else if (event.httpMethod === 'DELETE') {
-    //   const id = JSON.parse(event.body).id
-    //   await removeLocation({ id })
-    //   return {
-    //     statusCode: 200
-    //   }
+    } else if (event.httpMethod === 'DELETE') {
+      const { status, id } = JSON.parse(event.body)
+      await updateInvite({ status, id, userId })
+      return {
+        statusCode: 200
+      }
     } else {
       return {
         statusCode: 405
