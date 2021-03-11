@@ -1,5 +1,4 @@
 const {
-  getCookieValue,
   verifyUser,
   getInvitation,
   getInvitations,
@@ -11,8 +10,7 @@ const handler = async (event, context) => {
   let user
 
   try {
-    const token = getCookieValue('token', event.headers.cookie)
-    user = await verifyUser(token)
+    user = await verifyUser(event.headers.cookie)
   } catch (error) {
     return {
       statusCode: 401,

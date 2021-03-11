@@ -37,6 +37,7 @@ async function signInAuth (auth) {
 
 async function signOutAuth (auth) {
   await auth.signOut()
+  document.cookie = 'token=;expires=0'
 }
 
 function getName (auth) {

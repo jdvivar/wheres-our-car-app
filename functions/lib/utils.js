@@ -20,7 +20,9 @@ function getCookieValue (key, cookies) {
   return false
 }
 
-async function verifyUser (token) {
+async function verifyUser (cookie) {
+  const token = getCookieValue('token', cookie)
+  if (!token) throw new Error('No token found in cookie')
   const client = new OAuth2Client(process.env.SNOWPACK_PUBLIC_GAPI_CLIENT_ID)
   const ticket = await client.verifyIdToken({
     idToken: token,
