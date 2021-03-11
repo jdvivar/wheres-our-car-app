@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.9.0...v1.10.0) (2021-03-11)
+
+
+### Features
+
+* add manage sharing ([b5aa987](https://github.com/jdvivar/wheres-our-car-app/commit/b5aa9875592c34bd83ccc6456da8bd2b40f72778))
+* added sharing link ([4cd2d6f](https://github.com/jdvivar/wheres-our-car-app/commit/4cd2d6f797d5e2827396ef226147f6e3ff01ed8f))
+* share car ([409c60c](https://github.com/jdvivar/wheres-our-car-app/commit/409c60c977bad7b38e934c4263cfd8bf11378557))
+* stop sharing ([6341c6e](https://github.com/jdvivar/wheres-our-car-app/commit/6341c6e0631f6c6441fcb02dd0da7811e00e194f))
+
+
+### Bug Fixes
+
+* remove rejected/stopped invitations ([119da68](https://github.com/jdvivar/wheres-our-car-app/commit/119da68395298216678bf6530e9aabd8270e0156))
+* show either pending or accepted sent invitations ([58fab47](https://github.com/jdvivar/wheres-our-car-app/commit/58fab4770311999f4b6ca5d35abc874015b60889))
+
 ## [1.9.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.8.0...v1.9.0) (2021-03-08)
 
 
