@@ -3,9 +3,9 @@ import { nothing } from 'lit-html'
 
 import { getInvitation, acceptInvitation, rejectInvitation } from '../../services/api.js'
 
-export class WocInvitation extends LitElement {
+export class WocInvitationIncoming extends LitElement {
   static get is () {
-    return 'woc-invitation'
+    return 'woc-invitation-incoming'
   }
 
   constructor () {
