@@ -166,11 +166,14 @@ async function updateInvite ({ status, id, userId }) {
         })
       } else if (status === 'stopped') {
         const toId = await inviteSnapshot.get('toId')
-        await carRef.update({
-          users: FieldValue.arrayRemove(toId)
-        })
+        if (toId) {
+          await carRef.update({
+            users: FieldValue.arrayRemove(toId)
+          })
+        }
+        await inviteRef.delete()
       } else if (status === 'rejected') {
-        //
+        await inviteRef.delete()
       }
     }
     return true
