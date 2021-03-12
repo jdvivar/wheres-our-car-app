@@ -1,10 +1,11 @@
-const { verifyUser, getLocations, addLocation, removeLocation } = require('./lib/utils.js')
+const { getCookieValue, COOKIE_KEY, getSession, getLocations, addLocation, removeLocation } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
 
   try {
-    user = await verifyUser(event.headers.cookie)
+    const id = getCookieValue(COOKIE_KEY, event.headers.cookie)
+    user = await getSession(id)
   } catch (error) {
     return {
       statusCode: 401,

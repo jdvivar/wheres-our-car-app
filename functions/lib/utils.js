@@ -1,6 +1,8 @@
 const { Firestore, FieldValue } = require('@google-cloud/firestore')
 const { OAuth2Client } = require('google-auth-library')
 
+const COOKIE_KEY = 'woc-session'
+
 function getFirestore () {
   return new Firestore({
     projectId: process.env.GCLOUD_PROJECT,
@@ -184,10 +186,25 @@ async function updateInvite ({ status, id, userId }) {
 }
 
 async function addInvite ({ to, carId, carName, from }) {
-  console.log({ to, carId, carName, from })
   const status = 'pending'
   const firestore = getFirestore()
   return await firestore.collection('invitations').doc().set({ to, carId, carName, from, status })
+}
+
+async function startSession (user) {
+  const firestore = getFirestore()
+  const sessionRef = await firestore.collection('sessions').add(user)
+  return sessionRef.id
+}
+
+async function endSession (id) {
+  const firestore = getFirestore()
+  await firestore.collection('sessions').doc(id).delete()
+}
+
+async function getSession (id) {
+  const firestore = getFirestore()
+  return (await firestore.collection('sessions').doc(id).get()).data()
 }
 
 module.exports = {
@@ -204,5 +221,9 @@ module.exports = {
   getInvitation,
   getInvitations,
   updateInvite,
-  addInvite
+  addInvite,
+  startSession,
+  endSession,
+  getSession,
+  COOKIE_KEY
 }

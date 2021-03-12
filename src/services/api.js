@@ -1,6 +1,23 @@
+import { store, signOutState } from '../../services/state.js'
+
 const CARS = '/api/cars'
 const LOCATIONS = '/api/locations'
 const INVITE = '/api/invite'
+const AUTH = '/api/auth'
+
+const legacyFetch = window.fetch
+window.fetch = async function (args) {
+  let response
+  try {
+    response = await legacyFetch(args)
+    if (response.status === 401) {
+      store.dispatch(signOutState())
+    }
+  } catch (error) {
+    console.log(error.toString())
+  }
+  return response
+}
 
 async function getCars () {
   const response = await window.fetch(CARS)
@@ -97,6 +114,14 @@ async function createInvitation (args) {
   })
 }
 
+async function signIn () {
+  await window.fetch(`${AUTH}/signin`)
+}
+
+async function signOut () {
+  await window.fetch(`${AUTH}/signout`)
+}
+
 export {
   getCars,
   createCar,
@@ -110,5 +135,7 @@ export {
   acceptInvitation,
   rejectInvitation,
   removeInvitation,
-  createInvitation
+  createInvitation,
+  signIn,
+  signOut
 }

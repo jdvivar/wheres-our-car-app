@@ -1,10 +1,14 @@
-const { verifyUser, getCars, addCar, removeCar, renameCar } = require('./lib/utils.js')
+const { getCars, addCar, removeCar, renameCar, COOKIE_KEY, getCookieValue, getSession } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
 
   try {
-    user = await verifyUser(event.headers.cookie)
+    // const start = process.hrtime()
+    const id = getCookieValue(COOKIE_KEY, event.headers.cookie)
+    user = await getSession(id)
+    // const diff = process.hrtime(start)
+    // console.log(`\nauth took ${diff[0] * 1e3 + diff[1] / 1000000}ms\n`)
   } catch (error) {
     return {
       statusCode: 401,

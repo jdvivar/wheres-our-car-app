@@ -1,3 +1,5 @@
+import { signIn, signOut } from './api.js'
+
 const { SNOWPACK_PUBLIC_GAPI_CLIENT_ID } = import.meta.env
 
 async function gapiCheck () {
@@ -33,11 +35,13 @@ function updateToken (auth) {
 async function signInAuth (auth) {
   await auth.signIn()
   updateToken(auth)
+  await signIn()
 }
 
 async function signOutAuth (auth) {
   await auth.signOut()
   document.cookie = 'token=;expires=0'
+  await signOut()
 }
 
 function getName (auth) {
