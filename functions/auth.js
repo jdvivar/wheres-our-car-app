@@ -1,16 +1,16 @@
-const { verifyUser, startSession, getCookieValue, endSession, COOKIE_KEY } = require('./lib/utils.js')
+const { verifyGoogleTokenFromCookies, startSession, COOKIE_KEY } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   try {
     if (event.httpMethod === 'GET') {
       if (event.path.includes('signin')) {
         try {
-          const user = await verifyUser(event.headers.cookie)
-          const id = await startSession(user)
+          const user = await verifyGoogleTokenFromCookies(event.headers.cookie)
+          const token = startSession(user)
           return {
             statusCode: 202,
             headers: {
-              'Set-Cookie': `${COOKIE_KEY}=${id}; Path=/`
+              'Set-Cookie': `${COOKIE_KEY}=${token}; Path=/`
             }
           }
         } catch (error) {
@@ -20,9 +20,6 @@ const handler = async (event, context) => {
           }
         }
       } else if (event.path.includes('signout')) {
-        const id = getCookieValue(COOKIE_KEY, event.headers.cookie)
-        console.log({ id })
-        await endSession(id)
         return {
           statusCode: 202,
           headers: {

@@ -1,5 +1,6 @@
 const { Firestore, FieldValue } = require('@google-cloud/firestore')
 const { OAuth2Client } = require('google-auth-library')
+const jwt = require('jsonwebtoken')
 
 const COOKIE_KEY = 'woc-session'
 
@@ -22,15 +23,29 @@ function getCookieValue (key, cookies) {
   return false
 }
 
-async function verifyUser (cookie) {
-  const token = getCookieValue('token', cookie)
-  if (!token) throw new Error('No token found in cookie')
+async function verifyGoogleTokenFromCookies (cookies) {
+  const token = getCookieValue('token', cookies)
+  if (!token) throw new Error('No token found in cookies')
   const client = new OAuth2Client(process.env.SNOWPACK_PUBLIC_GAPI_CLIENT_ID)
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: process.env.SNOWPACK_PUBLIC_GAPI_CLIENT_ID
   })
   return ticket.getPayload()
+}
+
+function startSession (user) {
+  const { exp, ...rest } = user
+  return jwt.sign(rest, process.env.JWT_SECRET, { expiresIn: '90d' })
+}
+
+function getSession (token) {
+  return jwt.verify(token, process.env.JWT_SECRET)
+}
+
+function getUserFromCookies (cookies) {
+  const token = getCookieValue(COOKIE_KEY, cookies)
+  return getSession(token)
 }
 
 async function getCars (userId) {
@@ -191,26 +206,10 @@ async function addInvite ({ to, carId, carName, from }) {
   return await firestore.collection('invitations').doc().set({ to, carId, carName, from, status })
 }
 
-async function startSession (user) {
-  const firestore = getFirestore()
-  const sessionRef = await firestore.collection('sessions').add(user)
-  return sessionRef.id
-}
-
-async function endSession (id) {
-  const firestore = getFirestore()
-  await firestore.collection('sessions').doc(id).delete()
-}
-
-async function getSession (id) {
-  const firestore = getFirestore()
-  return (await firestore.collection('sessions').doc(id).get()).data()
-}
-
 module.exports = {
   getFirestore,
   getCookieValue,
-  verifyUser,
+  verifyGoogleTokenFromCookies,
   getCars,
   addCar,
   removeCar,
@@ -223,7 +222,8 @@ module.exports = {
   updateInvite,
   addInvite,
   startSession,
-  endSession,
+  // endSession,
   getSession,
-  COOKIE_KEY
+  COOKIE_KEY,
+  getUserFromCookies
 }

@@ -1,19 +1,16 @@
 const {
-  getCookieValue,
-  getSession,
-  COOKIE_KEY,
   getInvitation,
   getInvitations,
   updateInvite,
-  addInvite
+  addInvite,
+  getUserFromCookies
 } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
 
   try {
-    const id = getCookieValue(COOKIE_KEY, event.headers.cookie)
-    user = await getSession(id)
+    user = getUserFromCookies(event.headers.cookie)
   } catch (error) {
     return {
       statusCode: 401,
