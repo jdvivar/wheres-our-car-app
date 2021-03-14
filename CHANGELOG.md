@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.10.0...v1.11.0) (2021-03-14)
+
+
+### Features
+
+* managing sessions ([246ba46](https://github.com/jdvivar/wheres-our-car-app/commit/246ba46378c17020de44ad288fa1b0d041e50777))
+* using JWT to save sessions ([a457d29](https://github.com/jdvivar/wheres-our-car-app/commit/a457d292660bd3c8d65d3821eb34d4304e8196d7))
+
 ## [1.10.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.9.0...v1.10.0) (2021-03-11)
 
 
