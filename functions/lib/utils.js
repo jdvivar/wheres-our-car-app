@@ -73,7 +73,7 @@ async function getCars (userId) {
 
 async function addCar ({ userId, name }) {
   const firestore = getFirestore()
-  firestore.collection('cars').doc().set({ name, owner: userId, users: [userId] })
+  return await firestore.collection('cars').doc().set({ name, owner: userId, users: [userId] })
 }
 
 async function removeCar ({ userId, id }) {
