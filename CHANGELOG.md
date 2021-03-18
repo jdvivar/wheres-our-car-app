@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.11.0...v1.12.0) (2021-03-18)
+
+
+### Features
+
+* add service worker ([58ab94a](https://github.com/jdvivar/wheres-our-car-app/commit/58ab94a68c6db2d40004817e0d6613c0cf1e92c3))
+
+
+### Bug Fixes
+
+* leave create location as it was ([b58434b](https://github.com/jdvivar/wheres-our-car-app/commit/b58434b9e5b13225962d51185943ab25d6886da3))
+* update when receiving responses ([b413bcf](https://github.com/jdvivar/wheres-our-car-app/commit/b413bcfd10be5b2b8f24ba9e9cdeca9e4504c2b0))
+
 ## [1.11.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.10.0...v1.11.0) (2021-03-14)
 
 
