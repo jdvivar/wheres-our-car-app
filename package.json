@@ -8,8 +8,8 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "standard",
-    "sw:build": "esbuild sw/service-worker.js --bundle --minify --sourcemap --outdir=build --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build": "npm run sw:build && snowpack build",
+    "sw:build": "esbuild sw/sw*.js --bundle --minify --sourcemap --outdir=build --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build": "snowpack build && npm run sw:build",
     "dev": "snowpack dev",
     "start": "netlify dev"
   },
@@ -43,6 +43,7 @@
     "google-auth-library": "^7.0.2",
     "lit-element": "^2.4.0",
     "pwa-helpers": "^0.9.1",
+    "register-service-worker": "^1.7.2",
     "workbox-broadcast-update": "^6.1.2",
     "workbox-cacheable-response": "^6.1.2",
     "workbox-routing": "^6.1.2",

@@ -37,15 +37,13 @@ export class WocCars extends connect(store)(LitElement) {
     }
   }
 
-  // @TODO
   connectedCallback () {
     super.connectedCallback()
     if (navigator) {
-      navigator.serviceWorker.addEventListener('message', async (event) => {
+      navigator.serviceWorker.addEventListener('message', event => {
         console.log('received message', event)
         // Optional: ensure the message came from workbox-broadcast-update
         if (event.data.meta === 'workbox-broadcast-update') {
-          console.log(event)
           this.handleUpdateCars()
         }
       })
