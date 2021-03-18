@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.3](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.2...v1.12.3) (2021-03-18)
+
+
+### Bug Fixes
+
+* sw logs ([8431721](https://github.com/jdvivar/wheres-our-car-app/commit/8431721fff50f6cd8b87f76ce265c3585ce2a676))
+
 ### [1.12.2](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.1...v1.12.2) (2021-03-18)
 
 ### [1.12.1](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.0...v1.12.1) (2021-03-18)
