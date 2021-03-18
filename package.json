@@ -8,7 +8,8 @@
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "standard",
-    "build": "snowpack build",
+    "sw:build": "esbuild sw/service-worker.js --bundle --minify --sourcemap --outdir=build --define:process.env.NODE_ENV=\\\"production\\\"",
+    "build": "npm run sw:build && snowpack build",
     "dev": "snowpack dev",
     "start": "netlify dev"
   },
@@ -28,6 +29,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "babel-eslint": "^10.1.0",
+    "esbuild": "^0.9.3",
     "husky": "^5.0.9",
     "jsonwebtoken": "^8.5.1",
     "snowpack": "^3.0.11",
@@ -40,7 +42,11 @@
     "dialog-polyfill": "^0.5.6",
     "google-auth-library": "^7.0.2",
     "lit-element": "^2.4.0",
-    "pwa-helpers": "^0.9.1"
+    "pwa-helpers": "^0.9.1",
+    "workbox-broadcast-update": "^6.1.2",
+    "workbox-cacheable-response": "^6.1.2",
+    "workbox-routing": "^6.1.2",
+    "workbox-strategies": "^6.1.2"
   },
   "standard": {
     "parser": "babel-eslint"

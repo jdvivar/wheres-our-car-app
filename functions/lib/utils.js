@@ -126,7 +126,7 @@ async function removeLocation ({ carId, locationId }) {
 
 async function addLocation ({ userName, carId, geo }) {
   const firestore = getFirestore()
-  await firestore.collection(`cars/${carId}/locations`).doc().set({
+  await firestore.collection(`cars/${carId}`).collection('locations').doc().set({
     userName,
     geo,
     date: new Date()

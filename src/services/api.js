@@ -6,10 +6,10 @@ const INVITE = '/api/invite'
 const AUTH = '/api/auth'
 
 const legacyFetch = window.fetch
-window.fetch = async function (args) {
+window.fetch = async function () {
   let response
   try {
-    response = await legacyFetch(args)
+    response = await legacyFetch.apply(this, arguments)
     if (response.status === 401) {
       store.dispatch(signOutState())
     }
