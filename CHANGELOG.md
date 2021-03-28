@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/jdvivar/wheres-our-car-app/compare/v1.13.0...v1.13.1) (2021-03-28)
+
+
+### Bug Fixes
+
+* remove sw registration from index ([f4833a1](https://github.com/jdvivar/wheres-our-car-app/commit/f4833a11f3e6767f8fef5f3d1428c6baaa69c86a))
+
 ## [1.13.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.4...v1.13.0) (2021-03-28)
 
 
