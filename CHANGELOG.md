@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.4...v1.13.0) (2021-03-28)
+
+
+### Features
+
+* remove service worker from build ([7de061b](https://github.com/jdvivar/wheres-our-car-app/commit/7de061b8e035e974b4d9a76e454e049209330105))
+
 ### [1.12.4](https://github.com/jdvivar/wheres-our-car-app/compare/v1.12.3...v1.12.4) (2021-03-28)
 
 
