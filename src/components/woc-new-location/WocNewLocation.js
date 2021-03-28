@@ -32,6 +32,7 @@ export class WocNewLocation extends LitElement {
   }
 
   async handleUserInput () {
+    this.getDialog().close()
     if (navigator.geolocation) {
       this.loading = true
       const location = await getCurrentPosition()
@@ -60,12 +61,10 @@ export class WocNewLocation extends LitElement {
         New location
       </button>
       <dialog id="dialog">
-        <form method="dialog" @submit=${this.handleUserInput} autocomplete="off">
-          The browser will ask for permission to get your location.
-          <menu>
-            <button type="submit">OK</button>
-          </menu>
-        </form>
+        The browser will ask for permission to get your location.
+        <menu>
+          <button @click=${this.handleUserInput}>OK</button>
+        </menu>
       </dialog>
     `
   }
