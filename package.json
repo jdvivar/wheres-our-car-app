@@ -9,7 +9,7 @@
     "lint:fix": "standard --fix",
     "test": "standard",
     "sw:build": "esbuild sw/sw*.js --bundle --minify --sourcemap --outdir=build --define:process.env.NODE_ENV=\\\"production\\\"",
-    "build": "snowpack build && npm run sw:build",
+    "build": "snowpack build",
     "dev": "snowpack dev",
     "start": "netlify dev"
   },
