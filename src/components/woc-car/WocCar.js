@@ -4,6 +4,7 @@ import { removeCar } from '../../services/api.js'
 import '../woc-new-location/woc-new-location.js'
 import '../woc-locations/woc-locations.js'
 import '../woc-manage-sharing/woc-manage-sharing.js'
+import '../woc-car-image/woc-car-image.js'
 
 export class WocCar extends LitElement {
   static get is () {
@@ -22,6 +23,7 @@ export class WocCar extends LitElement {
 
     return html`
       <div style="border: 1px solid black; padding: 10px; margin: 10px 0;">
+        <woc-car-image .car=${this.car}></woc-car-image>
         <h3>${this.car.name}</h3>
         <button @click=${this.handleRemove}>
           ${

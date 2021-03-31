@@ -42,6 +42,7 @@
     "dialog-polyfill": "^0.5.6",
     "google-auth-library": "^7.0.2",
     "lit-element": "^2.4.0",
+    "node-fetch": "^2.6.1",
     "pwa-helpers": "^0.9.1",
     "register-service-worker": "^1.7.2",
     "workbox-broadcast-update": "^6.1.2",
