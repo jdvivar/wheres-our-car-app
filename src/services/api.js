@@ -41,7 +41,7 @@ async function removeCar (id) {
   })
 }
 
-async function renameCar (args) {
+async function editCar (args) {
   await window.fetch(CARS, {
     method: 'PATCH',
     body: JSON.stringify(args)
@@ -126,7 +126,7 @@ export {
   getCars,
   createCar,
   removeCar,
-  renameCar,
+  editCar,
   getLocations,
   removeLocation,
   createLocation,

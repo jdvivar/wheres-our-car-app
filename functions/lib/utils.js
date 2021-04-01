@@ -64,7 +64,8 @@ async function getCars (userId) {
     cars.push({
       id: car.id,
       name: car.get('name'),
-      isMine: car.get('owner') === userId
+      isMine: car.get('owner') === userId,
+      imageUrl: car.get('imageUrl')
     })
   })
 
@@ -91,14 +92,14 @@ async function removeCar ({ userId, id }) {
   }
 }
 
-async function renameCar ({ userId, id, name }) {
+async function editCar ({ userId, id, key, value }) {
   const firestore = getFirestore()
   const doc = await firestore.collection('cars').doc(id)
   const carSnapshot = await doc.get()
   const car = carSnapshot.data()
 
   if (car.users.includes(userId)) {
-    await doc.update({ name })
+    await doc.update({ [key]: value })
   }
 }
 
@@ -213,7 +214,7 @@ module.exports = {
   getCars,
   addCar,
   removeCar,
-  renameCar,
+  editCar,
   getLocations,
   removeLocation,
   addLocation,

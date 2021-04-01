@@ -1,4 +1,6 @@
 import { LitElement, html, css } from 'lit-element'
+import { nothing } from 'lit-html'
+import { editCar } from '../../services/api.js'
 
 const {
   SNOWPACK_PUBLIC_CLOUDINARY_PRESET,
@@ -21,7 +23,8 @@ export class WocCarImage extends LitElement {
 
   static get properties () {
     return {
-      imageUrl: { type: String }
+      imageUrl: String,
+      car: Object
     }
   }
 
@@ -33,7 +36,7 @@ export class WocCarImage extends LitElement {
   handleCloudinary (error, result) {
     if (!error && result && result.event === 'success') {
       this.imageUrl = result.info.secure_url
-      // setCarImage({ name, id: this.car.id })
+      editCar({ key: 'imageUrl', value: this.imageUrl, id: this.car.id })
     }
   }
 
@@ -54,8 +57,13 @@ export class WocCarImage extends LitElement {
 
   render () {
     return html`
-      <img src=${this.imageUrl}></img>
-      <button @click=${this.handleUpload}>Upload image</button>
+      <img src=${this.car.imageUrl ? this.car.imageUrl : this.imageUrl}></img>
+      ${
+        this.car.isMine
+        ? html`<button @click=${this.handleUpload}>Upload image</button>`
+        : nothing
+      }
+      
     `
   }
 }

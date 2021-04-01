@@ -1,4 +1,4 @@
-const { getCars, addCar, removeCar, renameCar, getUserFromCookies } = require('./lib/utils.js')
+const { getCars, addCar, removeCar, editCar, getUserFromCookies } = require('./lib/utils.js')
 
 const handler = async (event, context) => {
   let user
@@ -42,8 +42,9 @@ const handler = async (event, context) => {
       }
     } else if (event.httpMethod === 'PATCH') {
       const id = JSON.parse(event.body).id
-      const name = JSON.parse(event.body).name
-      await renameCar({ userId, id, name })
+      const key = JSON.parse(event.body).key
+      const value = JSON.parse(event.body).value
+      await editCar({ userId, id, key, value })
       return {
         statusCode: 200
       }

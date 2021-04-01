@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit-element'
-import { createCar, renameCar } from '../../services/api.js'
+import { createCar, editCar } from '../../services/api.js'
 import { getName, setup } from '../../services/auth.js'
 import dialogPolyfill from 'dialog-polyfill'
 import { dialogPolyfillStyle } from '../lib/dialog-polyfill.style.js'
@@ -41,7 +41,7 @@ export class WocEditCar extends LitElement {
     if (this.op === 'new') {
       await createCar(name)
     } else {
-      await renameCar({ name, id: this.car.id })
+      await editCar({ key: 'name', value: name, id: this.car.id })
     }
     this.dispatchEvent(new window.CustomEvent('update-cars', { bubbles: true, composed: true }))
   }
