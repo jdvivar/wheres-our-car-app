@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/jdvivar/wheres-our-car-app/compare/v1.13.1...v1.14.0) (2021-04-01)
+
+
+### Features
+
+* add set image component ([d061669](https://github.com/jdvivar/wheres-our-car-app/commit/d061669882a603982d176f444d822b5b7868e490))
+* edit car image ([c50cc40](https://github.com/jdvivar/wheres-our-car-app/commit/c50cc40ad6d2130d78bf1e9e2384f6186b58b4e8))
+
 ### [1.13.1](https://github.com/jdvivar/wheres-our-car-app/compare/v1.13.0...v1.13.1) (2021-03-28)
 
 
